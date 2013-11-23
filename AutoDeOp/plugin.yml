@@ -1,0 +1,13 @@
+name: AutoDeOp
+version: 0.9
+author: EnkyHD
+main: com18bytes.plugindev.autodeop.main.AutoDeOp
+dev-url: http://dev.bukkit.org/server-mods/autodeop
+permissions:
+    autodeop.reload:
+        description: Allows you to reload AutoDeOp Config
+        default: false
+commands:
+   autodeop:
+      description: Access to reload config.
+      usage: /<command> reload

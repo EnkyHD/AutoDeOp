@@ -1,0 +1,16 @@
+BackEnd:
+  VersionDONOTCHANGE: 1
+  UpdateChecking: true
+  Metrics: true
+Players:
+  AllowedOp:
+    - EnkyHD
+  AllowedGamemode:
+    - EnkyHD
+Checks:
+  SurvivalOnly: true
+  CreativeOnly: false
+  AdventureOnly: false
+Block:
+  OPingNonAllowedOPs: true
+  OPInConsole: true
