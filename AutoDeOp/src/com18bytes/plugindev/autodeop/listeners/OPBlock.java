@@ -24,7 +24,7 @@ public class OPBlock implements Listener {
 			
 			// Split the command
 			String[] args = event.getMessage().split(" ");
-			// Get rid of the first /
+			// Get rid of the first / if it exists
 			String cmd = args[0].replace("/", "");
 		    if(cmd.equalsIgnoreCase("op")) {
 		    	// Cancel it
@@ -35,6 +35,7 @@ public class OPBlock implements Listener {
 		    	}
 		    	event.setCancelled(true);
                 plugin.getConfig().set("Stats.blockedByCommand", plugin.getConfig().getInt("Stats.blockedByCommand", 0) + 1);
+                plugin.saveConfig();
 		    }
 		}
 	}
@@ -42,7 +43,7 @@ public class OPBlock implements Listener {
 	@EventHandler
 	public void consoleCMD(ServerCommandEvent event){
 		if(plugin.getConfig().getBoolean("Block.OPInConsole")){
-			// Get rid of the first /
+			// Get rid of the first / if it exists
 			String cmd = event.getCommand().replace("/", "");
             if (cmd.length() < 2) {
                 return;
@@ -50,6 +51,7 @@ public class OPBlock implements Listener {
 			if(cmd.toLowerCase().charAt(0) == 'o' && cmd.toLowerCase().charAt(1) == 'p') {
 				event.setCommand("");
                 plugin.getConfig().set("Stats.blockedInConsole", plugin.getConfig().getInt("Stats.blockedInConsole", 0) + 1);
+                plugin.saveConfig();
 			}
 		}
 	}
