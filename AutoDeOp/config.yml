@@ -1,5 +1,5 @@
 BackEnd:
-  VersionDONOTCHANGE: 1
+  VersionDONOTCHANGE: 2
   UpdateChecking: true
   Metrics: true
 Players:
@@ -7,10 +7,11 @@ Players:
     - EnkyHD
   AllowedGamemode:
     - EnkyHD
-Checks:
-  SurvivalOnly: true
-  CreativeOnly: false
-  AdventureOnly: false
 Block:
+  PlayersFromChangingGameMode: true
   OPingNonAllowedOPs: true
   OPInConsole: true
+Stats:
+  blockedInConsole: 0
+  blockedByCommand: 0
+  playersDeopOnJoin: 0
