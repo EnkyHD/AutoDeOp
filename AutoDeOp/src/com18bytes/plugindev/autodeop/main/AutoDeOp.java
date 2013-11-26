@@ -101,7 +101,7 @@ public class AutoDeOp extends JavaPlugin
             this.saveDefaultConfig();
         } else {
         	FileConfiguration config = YamlConfiguration.loadConfiguration(file);
-        	if (config.contains("Version Do Not Change")) {
+        	if (config.contains("Version Do Not Change") || config.getInt("BackEnd.VersionDONOTCHANGE", 1) == 1) {
         		file.delete();
         		File tempfile = new File(this.getDataFolder() + File.separator + "oldconfig.yml");
         		try {
@@ -115,15 +115,13 @@ public class AutoDeOp extends JavaPlugin
 	
 	private void updateConfig() {
 		File tempfile = new File(this.getDataFolder() + File.separator + "oldconfig.yml");
+
 		FileConfiguration oldC = YamlConfiguration.loadConfiguration(tempfile);
 		this.saveDefaultConfig();
-		this.getConfig().set("Players.AllowedOp", oldC.getStringList("Players Allowed Op"));
-		this.getConfig().set("Players.AllowedGamemode", oldC.getStringList("Players Allowed Gamemode"));
-		this.getConfig().set("Checks.SurvivalOnly", oldC.getBoolean("Gamemode Survival Only Check"));
-		this.getConfig().set("Checks.CreativeOnly", oldC.getBoolean("Gamemode Creative Only Check"));
-		this.getConfig().set("Checks.AdventureOnly", oldC.getBoolean("Gamemode Adventure Only Check"));
-		this.getConfig().set("Block.OPingNonAllowedOPs", oldC.getBoolean("Block OPing non-Allowed OPs"));
-		this.getConfig().set("Block.OPInConsole", oldC.getBoolean("Block OPing in Console"));
+		this.getConfig().set("Players.AllowedOp", oldC.getStringList("Players.AllowedOp"));
+		this.getConfig().set("Players.AllowedGamemode", oldC.getStringList("Players.AllowedGamemode"));
+		this.getConfig().set("Block.OPingNonAllowedOPs", oldC.getBoolean("Block.OPingNonAllowedOPs"));
+		this.getConfig().set("Block.OPInConsole", oldC.getBoolean("Block.OPInConsole"));
 		this.saveConfig();
 	}
 }
