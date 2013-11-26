@@ -9,16 +9,14 @@ package com18bytes.plugindev.autodeop.listeners;
  *
  */
 
+import com18bytes.plugindev.autodeop.main.AutoDeOp;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerGameModeChangeEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
-
-import com18bytes.plugindev.autodeop.main.AutoDeOp;
 
 
 public class PlayerListener implements Listener {
@@ -41,6 +39,7 @@ public class PlayerListener implements Listener {
 			{
 				Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "deop " + playerJoined);
                 plugin.getConfig().set("Stats.playersDeopOnJoin", plugin.getConfig().getInt("Stats.playersDeopOnJoin", 0) + 1);
+                plugin.saveConfig();
 			}
 			if (plugin.updateAvailable == true){
 			    player.sendMessage(ChatColor.LIGHT_PURPLE + "[AutoDeOp] A new version is available: v." + plugin.versionAvailable + " http://dev.bukkit.org/server-mods/autodeop/");
@@ -55,33 +54,14 @@ public class PlayerListener implements Listener {
 		Player playerGM = event.getPlayer();
 		String playerModified = playerGM.getName();
 		String allowedGameMode = plugin.getConfig().getString("Players.AllowedGamemode");
-		if (plugin.getConfig().getBoolean("Checks.SurvivalOnly"))
+		if (plugin.getConfig().getBoolean("Block.PlayersFromChangingGameMode"))
 		{
 			if (!(allowedGameMode.toLowerCase().contains(playerModified.toLowerCase())))
-			{
-				if (playerGM.getGameMode() == GameMode.SURVIVAL)
+            {
+				if (playerGM.getGameMode() != plugin.getServer().getDefaultGameMode())
 				{
-					event.setCancelled(true);
-				}
-			}
-		}
-		if (plugin.getConfig().getBoolean("Checks.CreativeOnly"))
-		{
-			if (!(allowedGameMode.toLowerCase().contains(playerModified.toLowerCase())))
-			{
-				if (playerGM.getGameMode() == GameMode.CREATIVE)
-				{
-					event.setCancelled(true);
-				}
-			}
-		}
-		if (plugin.getConfig().getBoolean("Check.AdventureOnly"))
-		{
-			if (!(allowedGameMode.toLowerCase().contains(playerModified.toLowerCase())))
-			{
-				if (playerGM.getGameMode() == GameMode.ADVENTURE)
-				{
-					event.setCancelled(true);
+                    event.setCancelled(true);
+                    playerGM.setGameMode(plugin.getServer().getDefaultGameMode());
 				}
 			}
 		}
